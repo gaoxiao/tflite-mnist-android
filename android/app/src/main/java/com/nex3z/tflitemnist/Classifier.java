@@ -19,6 +19,7 @@ import java.util.Arrays;
 public class Classifier {
     private static final String LOG_TAG = Classifier.class.getSimpleName();
 
+//    private static final String MODEL_NAME = "ocr.tflite";
     private static final String MODEL_NAME = "mnist.tflite";
 
     private static final int BATCH_SIZE = 1;
