@@ -19,12 +19,12 @@ import java.util.Arrays;
 public class Classifier {
     private static final String LOG_TAG = Classifier.class.getSimpleName();
 
-//    private static final String MODEL_NAME = "ocr.tflite";
-    private static final String MODEL_NAME = "mnist.tflite";
+    private static final String MODEL_NAME = "ocr.tflite";
+//    private static final String MODEL_NAME = "mnist.tflite";
 
     private static final int BATCH_SIZE = 1;
-    public static final int IMG_HEIGHT = 28;
-    public static final int IMG_WIDTH = 28;
+    public static final int IMG_HEIGHT = 100;
+    public static final int IMG_WIDTH = 80;
     private static final int NUM_CHANNEL = 1;
     private static final int NUM_CLASSES = 10;
 
@@ -33,6 +33,7 @@ public class Classifier {
     private final ByteBuffer mImageData;
     private final int[] mImagePixels = new int[IMG_HEIGHT * IMG_WIDTH];
     private final float[][] mResult = new float[1][NUM_CLASSES];
+    private final int[][] mResult2 = new int[1][10];
 
     public Classifier(Activity activity) throws IOException {
         mInterpreter = new Interpreter(loadModelFile(activity), options);
@@ -44,7 +45,7 @@ public class Classifier {
     public Result classify(Bitmap bitmap) {
         convertBitmapToByteBuffer(bitmap);
         long startTime = SystemClock.uptimeMillis();
-        mInterpreter.run(mImageData, mResult);
+        mInterpreter.run(mImageData, mResult2);
         long endTime = SystemClock.uptimeMillis();
         long timeCost = endTime - startTime;
         Log.v(LOG_TAG, "classify(): result = " + Arrays.toString(mResult[0])
