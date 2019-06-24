@@ -3,10 +3,6 @@ package com.nex3z.tflitemnist;
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -30,13 +26,13 @@ public class Classifier {
     public static final int IMG_HEIGHT = 100;
     public static final int IMG_WIDTH = 80;
     private static final int NUM_CHANNEL = 1;
-    private static final int NUM_CLASSES = 10;
+    private static final int MAX_LENGTH = 10;
 
     private final Interpreter.Options options = new Interpreter.Options();
     private final Interpreter mInterpreter;
     private final ByteBuffer mImageData;
     private final int[] mImagePixels = new int[IMG_HEIGHT * IMG_WIDTH];
-    private final int[][] mResult = new int[1][10];
+    private final int[][] mResult = new int[1][MAX_LENGTH];
 
     public Classifier(Activity activity) throws IOException {
         mInterpreter = new Interpreter(loadModelFile(activity), options);
@@ -46,14 +42,9 @@ public class Classifier {
     }
 
     public Result classify(Bitmap bitmap) {
-//        bitmap = toGrayscale(bitmap);
         convertBitmapToByteBuffer(bitmap);
         long startTime = SystemClock.uptimeMillis();
 
-//        Object[] inputs = {mImageData, 1};
-//        Map<Integer, Object> outputs = new HashMap<>();
-//        outputs.put(0, mResult);
-//        mInterpreter.runForMultipleInputsOutputs(inputs, outputs);
 
         mInterpreter.run(mImageData, mResult);
         long endTime = SystemClock.uptimeMillis();
@@ -64,22 +55,6 @@ public class Classifier {
         Log.i(LOG_TAG, res.getResult());
         return res;
     }
-
-//    private Bitmap toGrayscale(Bitmap bmpOriginal) {
-//        int width, height;
-//        height = bmpOriginal.getHeight();
-//        width = bmpOriginal.getWidth();
-//
-//        Bitmap bmpGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-//        Canvas c = new Canvas(bmpGrayscale);
-//        Paint paint = new Paint();
-//        ColorMatrix cm = new ColorMatrix();
-//        cm.setSaturation(0);
-//        ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
-//        paint.setColorFilter(f);
-//        c.drawBitmap(bmpOriginal, 0, 0, paint);
-//        return bmpGrayscale;
-//    }
 
     private MappedByteBuffer loadModelFile(Activity activity) throws IOException {
         AssetFileDescriptor fileDescriptor = activity.getAssets().openFd(MODEL_NAME);
