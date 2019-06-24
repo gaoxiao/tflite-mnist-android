@@ -1,5 +1,7 @@
 package com.nex3z.tflitemnist;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +9,10 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nex3z.fingerpaintview.FingerPaintView;
+import com.github.gcacace.signaturepad.views.SignaturePad;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -18,10 +22,16 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.fpv_paint) FingerPaintView mFpvPaint;
-    @BindView(R.id.tv_prediction) TextView mTvPrediction;
-    @BindView(R.id.tv_probability) TextView mTvProbability;
-    @BindView(R.id.tv_timecost) TextView mTvTimeCost;
+    @BindView(R.id.tv_prediction)
+    TextView mTvPrediction;
+    @BindView(R.id.tv_probability)
+    TextView mTvProbability;
+    @BindView(R.id.tv_timecost)
+    TextView mTvTimeCost;
+
+    @BindView(R.id.signature_pad)
+    SignaturePad pad;
+
 
     private Classifier mClassifier;
 
@@ -38,20 +48,52 @@ public class MainActivity extends AppCompatActivity {
         if (mClassifier == null) {
             Log.e(LOG_TAG, "onDetectClick(): Classifier is not initialized");
             return;
-        } else if (mFpvPaint.isEmpty()) {
-            Toast.makeText(this, R.string.please_write_a_digit, Toast.LENGTH_SHORT).show();
-            return;
         }
 
-        Bitmap image = mFpvPaint.exportToBitmap(
-                Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT);
-        Result result = mClassifier.classify(image);
+//        if (mFpvPaint.isEmpty()) {
+//            Toast.makeText(this, R.string.please_write_a_digit, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+
+//        Bitmap image = mFpvPaint.exportToBitmap(
+//                Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT);
+//        Result result = mClassifier.classify(image);
+
+        Bitmap padImage = pad.getSignatureBitmap();
+        saveImg(padImage, "orig.png");
+        padImage = Bitmap.createScaledBitmap(
+                padImage, Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT, true);
+        saveImg(padImage, "sample.png");
+        Result result = mClassifier.classify(padImage);
+
         renderResult(result);
+    }
+
+    void saveImg(Bitmap img, String name) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("saved_data", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath = new File(directory, name);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            img.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @OnClick(R.id.btn_clear)
     void onClearClick() {
-        mFpvPaint.clear();
+        pad.clear();
         mTvPrediction.setText(R.string.empty);
         mTvProbability.setText(R.string.empty);
         mTvTimeCost.setText(R.string.empty);
@@ -67,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void renderResult(Result result) {
-        mTvPrediction.setText(String.valueOf(result.getNumber()));
-        mTvProbability.setText(String.valueOf(result.getProbability()));
+        mTvPrediction.setText(result.getResult());
+//        mTvProbability.setText(String.valueOf(result.getProbability()));
         mTvTimeCost.setText(String.format(getString(R.string.timecost_value),
                 result.getTimeCost()));
     }

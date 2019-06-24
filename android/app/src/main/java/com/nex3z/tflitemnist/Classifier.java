@@ -3,6 +3,10 @@ package com.nex3z.tflitemnist;
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -19,7 +23,7 @@ import java.util.Arrays;
 public class Classifier {
     private static final String LOG_TAG = Classifier.class.getSimpleName();
 
-    private static final String MODEL_NAME = "ocr.tflite";
+    private static final String MODEL_NAME = "converted_model.tflite";
 //    private static final String MODEL_NAME = "mnist.tflite";
 
     private static final int BATCH_SIZE = 1;
@@ -32,8 +36,7 @@ public class Classifier {
     private final Interpreter mInterpreter;
     private final ByteBuffer mImageData;
     private final int[] mImagePixels = new int[IMG_HEIGHT * IMG_WIDTH];
-    private final float[][] mResult = new float[1][NUM_CLASSES];
-    private final int[][] mResult2 = new int[1][10];
+    private final int[][] mResult = new int[1][10];
 
     public Classifier(Activity activity) throws IOException {
         mInterpreter = new Interpreter(loadModelFile(activity), options);
@@ -43,6 +46,7 @@ public class Classifier {
     }
 
     public Result classify(Bitmap bitmap) {
+//        bitmap = toGrayscale(bitmap);
         convertBitmapToByteBuffer(bitmap);
         long startTime = SystemClock.uptimeMillis();
 
@@ -51,13 +55,31 @@ public class Classifier {
 //        outputs.put(0, mResult);
 //        mInterpreter.runForMultipleInputsOutputs(inputs, outputs);
 
-        mInterpreter.run(mImageData, mResult2);
+        mInterpreter.run(mImageData, mResult);
         long endTime = SystemClock.uptimeMillis();
         long timeCost = endTime - startTime;
         Log.v(LOG_TAG, "classify(): result = " + Arrays.toString(mResult[0])
                 + ", timeCost = " + timeCost);
-        return new Result(mResult[0], timeCost);
+        Result res = new Result(mResult[0], timeCost);
+        Log.i(LOG_TAG, res.getResult());
+        return res;
     }
+
+//    private Bitmap toGrayscale(Bitmap bmpOriginal) {
+//        int width, height;
+//        height = bmpOriginal.getHeight();
+//        width = bmpOriginal.getWidth();
+//
+//        Bitmap bmpGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        Canvas c = new Canvas(bmpGrayscale);
+//        Paint paint = new Paint();
+//        ColorMatrix cm = new ColorMatrix();
+//        cm.setSaturation(0);
+//        ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+//        paint.setColorFilter(f);
+//        c.drawBitmap(bmpOriginal, 0, 0, paint);
+//        return bmpGrayscale;
+//    }
 
     private MappedByteBuffer loadModelFile(Activity activity) throws IOException {
         AssetFileDescriptor fileDescriptor = activity.getAssets().openFd(MODEL_NAME);
@@ -81,7 +103,8 @@ public class Classifier {
         for (int i = 0; i < IMG_WIDTH; ++i) {
             for (int j = 0; j < IMG_HEIGHT; ++j) {
                 int value = mImagePixels[pixel++];
-                mImageData.putFloat(convertPixel(value));
+//                mImageData.putFloat(convertPixel(value));
+                mImageData.putInt(convertPixelInt(value));
             }
         }
     }
@@ -90,5 +113,11 @@ public class Classifier {
         return (255 - (((color >> 16) & 0xFF) * 0.299f
                 + ((color >> 8) & 0xFF) * 0.587f
                 + (color & 0xFF) * 0.114f)) / 255.0f;
+    }
+
+    private static int convertPixelInt(int color) {
+        return (int) (((color >> 16) & 0xFF) * 0.299f
+                + ((color >> 8) & 0xFF) * 0.587f
+                + (color & 0xFF) * 0.114f);
     }
 }

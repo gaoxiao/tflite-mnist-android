@@ -56,18 +56,11 @@
 
     </TableLayout>
 
-    <com.nex3z.fingerpaintview.FingerPaintView
-        android:id="@+id/fpv_paint"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:foreground="@drawable/shape_rect_border"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal">
 
         <Button
@@ -75,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/detect"/>
+            android:text="@string/detect" />
 
         <Button
             android:id="@+id/btn_clear"
@@ -85,5 +78,15 @@
             android:text="@string/clear"/>
 
     </LinearLayout>
+
+    <com.github.gcacace.signaturepad.views.SignaturePad
+        android:id="@+id/signature_pad"
+        android:layout_width="343dp"
+        android:layout_height="397dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/shape_rect_border"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints" />
 
 </LinearLayout>
