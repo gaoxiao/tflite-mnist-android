@@ -45,6 +45,12 @@ public class Classifier {
     public Result classify(Bitmap bitmap) {
         convertBitmapToByteBuffer(bitmap);
         long startTime = SystemClock.uptimeMillis();
+
+//        Object[] inputs = {mImageData, 1};
+//        Map<Integer, Object> outputs = new HashMap<>();
+//        outputs.put(0, mResult);
+//        mInterpreter.runForMultipleInputsOutputs(inputs, outputs);
+
         mInterpreter.run(mImageData, mResult2);
         long endTime = SystemClock.uptimeMillis();
         long timeCost = endTime - startTime;
