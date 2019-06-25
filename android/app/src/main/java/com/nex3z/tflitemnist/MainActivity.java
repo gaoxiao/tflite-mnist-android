@@ -3,6 +3,9 @@ package com.nex3z.tflitemnist;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -62,12 +65,39 @@ public class MainActivity extends AppCompatActivity {
         Bitmap padImage = pad.getSignatureBitmap();
         saveImg(padImage, "orig.png");
         padImage = Bitmap.createScaledBitmap(
-                padImage, Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT, true);
+                padImage, Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT, false);
+//        padImage = scaleCenterCrop(
+//                padImage, Classifier.IMG_HEIGHT, Classifier.IMG_WIDTH);
         saveImg(padImage, "sample.png");
         Result result = mClassifier.classify(padImage);
 
         renderResult(result);
     }
+
+    public static Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
+        float xScale = (float) newWidth / sourceWidth;
+        float yScale = (float) newHeight / sourceHeight;
+        float scale = Math.max(xScale, yScale);
+
+        //get the resulting size after scaling
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
+
+        //figure out where we should translate to
+        float dx = (newWidth - scaledWidth) / 2;
+        float dy = (newHeight - scaledHeight) / 2;
+
+        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, source.getConfig());
+        Canvas canvas = new Canvas(dest);
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        matrix.postTranslate(dx, dy);
+        canvas.drawBitmap(source, matrix, null);
+        return dest;
+    }
+
 
     void saveImg(Bitmap img, String name) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
