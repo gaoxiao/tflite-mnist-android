@@ -44,8 +44,6 @@ public class Classifier {
     public Result classify(Bitmap bitmap) {
         convertBitmapToByteBuffer(bitmap);
         long startTime = SystemClock.uptimeMillis();
-
-
         mInterpreter.run(mImageData, mResult);
         long endTime = SystemClock.uptimeMillis();
         long timeCost = endTime - startTime;
