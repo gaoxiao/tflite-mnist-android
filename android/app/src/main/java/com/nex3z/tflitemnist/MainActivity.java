@@ -62,13 +62,16 @@ public class MainActivity extends AppCompatActivity {
 //                Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT);
 //        Result result = mClassifier.classify(image);
 
-        Bitmap padImage = pad.getSignatureBitmap();
-        saveImg(padImage, "orig.png");
-        padImage = Bitmap.createScaledBitmap(
-                padImage, Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT, false);
+        Bitmap origImage = pad.getSignatureBitmap();
+        saveImg(origImage, "orig.png");
 //        padImage = scaleCenterCrop(
 //                padImage, Classifier.IMG_HEIGHT, Classifier.IMG_WIDTH);
+//        padImage = scaleCenterCrop(
+//                padImage, Classifier.IMG_HEIGHT, Classifier.IMG_WIDTH);
+        Bitmap padImage = Bitmap.createScaledBitmap(
+                origImage, Classifier.IMG_WIDTH, Classifier.IMG_HEIGHT, false);
         saveImg(padImage, "sample.png");
+
         Result result = mClassifier.classify(padImage);
 
         renderResult(result);
@@ -98,6 +101,23 @@ public class MainActivity extends AppCompatActivity {
         return dest;
     }
 
+
+    public static Bitmap getBitmap(Bitmap bitmap, int screenWidth,
+                                   int screenHight) {
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        Matrix matrix = new Matrix();
+        float scale = (float) screenWidth / w;
+        float scale2 = (float) screenHight / h;
+        // scale = scale < scale2 ? scale : scale2;
+        matrix.postScale(scale, scale);
+        Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+        if (bitmap != null && !bitmap.equals(bmp) && !bitmap.isRecycled()) {
+            bitmap.recycle();
+            bitmap = null;
+        }
+        return bmp;// Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+    }
 
     void saveImg(Bitmap img, String name) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());

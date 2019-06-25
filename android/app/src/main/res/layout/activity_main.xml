@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,25 +14,25 @@
 
         <TextView
             style="@style/ResultText"
-            android:text="@string/prediction"/>
+            android:text="@string/prediction" />
 
         <TextView
             android:id="@+id/tv_prediction"
             style="@style/ResultText"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
             android:text="@string/empty"
-            tools:text="1"/>
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            tools:text="1" />
 
         <TableRow>
 
             <TextView
                 style="@style/ResultText"
-                android:text="@string/probability"/>
+                android:text="@string/probability" />
 
             <TextView
                 style="@style/ResultText"
-                android:text="@string/timecost"/>
+                android:text="@string/timecost" />
 
         </TableRow>
 
@@ -40,17 +41,17 @@
             <TextView
                 android:id="@+id/tv_probability"
                 style="@style/ResultText"
-                android:textColor="@android:color/black"
                 android:text="@string/empty"
-                tools:text="0.9"/>
+                android:textColor="@android:color/black"
+                tools:text="0.9" />
 
 
             <TextView
                 android:id="@+id/tv_timecost"
                 style="@style/ResultText"
-                android:textColor="@android:color/black"
                 android:text="@string/empty"
-                tools:text="10ms"/>
+                android:textColor="@android:color/black"
+                tools:text="10ms" />
 
         </TableRow>
 
@@ -75,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/clear"/>
+            android:text="@string/clear" />
 
     </LinearLayout>
 
@@ -87,6 +88,8 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/shape_rect_border"
         android:visibility="visible"
+        app:penMaxWidth="10dp"
+        app:penMinWidth="6dp"
         tools:ignore="MissingConstraints" />
 
 </LinearLayout>
