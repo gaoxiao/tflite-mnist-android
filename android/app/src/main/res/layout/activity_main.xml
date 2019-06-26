@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.nex3z.tflitemnist.MainActivity">
+    tools:context="ai.ll.tflitemnist.MainActivity">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -88,8 +88,8 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/shape_rect_border"
         android:visibility="visible"
-        app:penMaxWidth="10dp"
-        app:penMinWidth="6dp"
+        app:penMaxWidth="7dp"
+        app:penMinWidth="3dp"
         tools:ignore="MissingConstraints" />
 
 </LinearLayout>

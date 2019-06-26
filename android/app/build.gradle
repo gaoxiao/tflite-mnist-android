@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.nex3z.tflitemnist"
-        minSdkVersion 15
+        applicationId "ai.ll.tflitemnist"
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
@@ -35,4 +35,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.github.gcacace:signature-pad:1.2.0'
     implementation project(path: ':tensorflow-lite-with-select-tf-ops')
+
+    implementation 'com.github.hkk595:Resizer:v1.5'
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation project(path: ':smoothrescale')
 }
