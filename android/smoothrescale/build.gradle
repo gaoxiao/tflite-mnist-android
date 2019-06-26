@@ -16,11 +16,13 @@ android {
         }
     }
 
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def ndkDir = properties.getProperty('ndk.dir')
+
     sourceSets.main.jni.srcDirs = []
 
     task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
-        def ndkDir = '/home/xiao/Android/Sdk/ndk-bundle'
-
         commandLine "$ndkDir/ndk-build",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=src/main/jniLibs',
