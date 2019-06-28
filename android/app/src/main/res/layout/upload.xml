@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    tools:context=".UploadActivity">
+
+    <TextView
+        android:id="@+id/upload_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/draw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+
+    <com.github.gcacace.signaturepad.views.SignaturePad
+        android:id="@+id/signature_pad"
+        android:layout_width="392dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_rect_border"
+        android:visibility="visible"
+        app:penMaxWidth="10dp"
+        app:penMinWidth="6dp"
+        tools:ignore="MissingConstraints"
+        android:layout_marginRight="11dp"
+        android:layout_marginLeft="12dp" />
+
+    <Button
+        android:id="@+id/Save"
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:onClick="save"
+        android:text="@string/save"
+        android:layout_below="@id/signature_pad"
+        android:layout_marginLeft="60dp" />
+
+    <Button
+        android:id="@+id/Clear"
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="30dp"
+        android:onClick="clear"
+        android:text="@string/clear"
+        android:layout_below="@id/signature_pad"
+        android:layout_toRightOf="@id/Save"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="50dp" />
+
+    <EditText
+        android:id="@+id/EdittextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="username"
+        android:layout_below="@id/signature_pad"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="540dp" />
+
+    <Button
+        android:id="@+id/write_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="286dp"
+        android:layout_marginRight="286dp"
+        android:text="@string/back_to_menu" />
+
+</RelativeLayout>

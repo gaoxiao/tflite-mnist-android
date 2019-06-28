@@ -9,4 +9,9 @@
     <string name="clear">Clear</string>
     <string name="please_write_a_digit">Please write a digit in the box above.</string>
     <string name="failed_to_create_classifier">Failed to create classifier.</string>
+    <string name="back_to_menu">Back to Menu</string>
+    <string name="draw">draw</string>
+    <string name="save">save</string>
+    <string name="write_a_number">write a Number</string>
+    <string name="detect_a_number">detect a number</string>
 </resources>
