@@ -63,15 +63,6 @@ public class UploadActivity extends Activity {
         resText.setText(String.valueOf("draw " + expectNumber));
         username = (EditText) findViewById(R.id.EdittextView);
         username.setText(String.valueOf(Username.getName()));
-        Button next = (Button) findViewById(R.id.write_back);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-
-        });
     }
 
     private void saveToInternalStorage(final Bitmap bitmapImage) {

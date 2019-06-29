@@ -1,43 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:focusableInTouchMode="true"
     tools:context=".WelcomeActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/welcom_write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/write_a_number" />
 
+        <Button
+            android:id="@+id/welcom_detect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/detect_a_number" />
 
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/welcom_write"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="30dp"
-        android:text="@string/write_a_number"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="60dp" />
-
-    <Button
-        android:id="@+id/welcom_detect"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="30dp"
-        android:layout_toEndOf="@id/welcom_write"
-        android:layout_toRightOf="@id/welcom_write"
-        android:text="@string/detect_a_number" />
 
 
 

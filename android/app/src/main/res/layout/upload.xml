@@ -8,16 +8,40 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".UploadActivity">
 
-    <Button
-        android:id="@+id/write_back"
-        android:layout_width="461dp"
+    <EditText
+        android:id="@+id/EdittextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="username"
+        tools:layout_editor_absoluteY="540dp"
         android:layout_gravity="center"
-        android:text="@string/back_to_menu" />
+        />
+    <TextView
+        android:id="@+id/upload_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/draw"
+        android:layout_gravity="center"
+
+        />
+
+    <com.github.gcacace.signaturepad.views.SignaturePad
+        android:id="@+id/signature_pad"
+        android:layout_marginTop="16dp"
+        android:layout_width="377dp"
+        android:layout_height="506dp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_rect_border"
+        android:visibility="visible"
+        app:penMaxWidth="7dp"
+        app:penMinWidth="3dp"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -38,41 +62,9 @@
             android:onClick="clear"
             android:layout_weight="1"
             android:text="@string/clear"
-           />
+            />
 
     </LinearLayout>
-    <EditText
-        android:id="@+id/EdittextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="username"
-        tools:layout_editor_absoluteY="540dp"
-        android:layout_gravity="center"
-        />
-    <TextView
-        android:id="@+id/upload_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/draw"
-        android:layout_gravity="center"
-
-        />
-
-    <com.github.gcacace.signaturepad.views.SignaturePad
-        android:id="@+id/signature_pad"
-        android:layout_width="377dp"
-        android:layout_height="506dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
-        android:background="@drawable/shape_rect_border"
-        android:visibility="visible"
-        app:penMaxWidth="10dp"
-        app:penMinWidth="6dp"
-        tools:ignore="MissingConstraints" />
-
-
 
 
 </LinearLayout>

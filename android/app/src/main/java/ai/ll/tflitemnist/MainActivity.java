@@ -119,15 +119,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.failed_to_create_classifier, Toast.LENGTH_LONG).show();
             Log.e(LOG_TAG, "init(): Failed to create Classifier", e);
         }
-        Button next = (Button) findViewById(R.id.detect_back);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-
-        });
     }
 
     private void renderResult(Result result) {

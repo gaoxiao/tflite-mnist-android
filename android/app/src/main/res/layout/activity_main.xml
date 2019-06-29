@@ -11,12 +11,6 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back_to_menu"
-            android:id="@+id/detect_back"
-            />
         <TextView
             style="@style/ResultText"
             android:text="@string/prediction" />
