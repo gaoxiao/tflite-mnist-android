@@ -88,7 +88,7 @@
     <com.github.gcacace.signaturepad.views.SignaturePad
         android:id="@+id/signature_pad"
         android:layout_width="377dp"
-        android:layout_height="wrap_content"
+        android:layout_height="506dp"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
         android:background="@drawable/shape_rect_border"

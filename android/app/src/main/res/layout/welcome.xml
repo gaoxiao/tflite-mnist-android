@@ -15,7 +15,7 @@
 
     <Button
         android:id="@+id/welcom_write"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="50dp"
@@ -26,18 +26,18 @@
 
     <Button
         android:id="@+id/welcom_detect"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="30dp"
-        android:text="@string/detect_a_number"
-       android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/welcom_write"
         android:layout_marginRight="60dp"
-        android:layout_marginLeft="50dp"
-        android:layout_toEndOf="@id/welcom_write" />
+        android:layout_marginBottom="30dp"
+        android:layout_toEndOf="@id/welcom_write"
+        android:layout_toRightOf="@id/welcom_write"
+        android:text="@string/detect_a_number" />
 
 
 
